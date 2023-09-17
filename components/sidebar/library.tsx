@@ -19,14 +19,12 @@ const Library = () => {
       {/* Header */}
       <div className="flex items-center">
         <div className="inline-flex items-center gap-x-2">
-          <TbPlaylist className="text-muted-foreground" size={20} />
-          <p className="text-md font-medium text-muted-foreground">
-            Your Library
-          </p>
+          <TbPlaylist size={20} />
+          <p className="text-md font-medium">Your Library</p>
         </div>
         <div className="flex-1" />
         <TbPlus
-          className="cursor-pointer text-muted-foreground transition hover:text-primary-foreground"
+          className="cursor-pointer transition hover:text-card-foreground/50"
           size={20}
           onClick={onClick}
         />
@@ -34,16 +32,6 @@ const Library = () => {
 
       {/* Body */}
       <div className="flex flex-col gap-y-2 pl-7 text-sm">
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
-        <p>List of songs</p>
         <p>List of songs</p>
         <p>List of songs</p>
         <p>List of songs</p>

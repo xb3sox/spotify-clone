@@ -1,172 +1,57 @@
 import Image from "next/image"
+import Link from "next/link"
+import { TbPlayerPause } from "react-icons/tb"
 
+import { Card } from "@/components/ui/card"
 import Header from "@/components/header"
 import { Icons } from "@/components/icons"
-import PlayListItem from "@/components/playlist-item"
+import PlayListGroup from "@/components/playlist/playlist-group"
+import PlayListItem from "@/components/playlist/playlist-item"
 
 const playlists = [
   {
     title: "Liked Songs",
     letter: "L",
+    coverColor: "bg-green-400",
+    href: "/",
   },
   {
-    title: "Chill",
-    letter: "C",
+    title: "Recently Played",
+    letter: "R",
+    coverColor: "bg-blue-400",
+    href: "/",
   },
   {
-    title: "Focus",
-    letter: "F",
+    title: "Albums",
+    letter: "A",
+    coverColor: "bg-yellow-400",
+    href: "/",
   },
   {
-    title: "Party",
+    title: "Artists",
+    letter: "A",
+    coverColor: "bg-red-400",
+    href: "/",
+  },
+  {
+    title: "Podcasts",
     letter: "P",
+    coverColor: "bg-purple-400",
+    href: "/",
   },
   {
-    title: "Workout",
-    letter: "W",
-  },
-  {
-    title: "Sleep",
-    letter: "S",
-  },
-  {
-    title: "Rock",
-    letter: "R",
-  },
-  {
-    title: "Pop",
-    letter: "P",
-  },
-  {
-    title: "Hip Hop",
-    letter: "H",
-  },
-  {
-    title: "Indie",
-    letter: "I",
-  },
-  {
-    title: "Jazz",
-    letter: "J",
-  },
-  {
-    title: "Folk",
-    letter: "F",
-  },
-  {
-    title: "Classical",
+    title: "Charts",
     letter: "C",
-  },
-  {
-    title: "Metal",
-    letter: "M",
-  },
-  {
-    title: "Country",
-    letter: "C",
-  },
-  {
-    title: "R&B",
-    letter: "R",
-  },
-  {
-    title: "Soul",
-    letter: "S",
-  },
-  {
-    title: "Reggae",
-    letter: "R",
-  },
-  {
-    title: "Blues",
-    letter: "B",
-  },
-  {
-    title: "K-Pop",
-    letter: "K",
-  },
-  {
-    title: "Anime",
-    letter: "A",
-  },
-  {
-    title: "Decades",
-    letter: "D",
-  },
-  {
-    title: "Latin",
-    letter: "L",
-  },
-  {
-    title: "Dance",
-    letter: "D",
-  },
-  {
-    title: "Electronic",
-    letter: "E",
-  },
-  {
-    title: "Reggaeton",
-    letter: "R",
-  },
-  {
-    title: "Funk",
-    letter: "F",
-  },
-  {
-    title: "Ska",
-    letter: "S",
-  },
-  {
-    title: "Comedy",
-    letter: "C",
-  },
-  {
-    title: "TV & Movies",
-    letter: "T",
-  },
-  {
-    title: "Kids & Family",
-    letter: "K",
-  },
-  {
-    title: "Audiobooks",
-    letter: "A",
-  },
-  {
-    title: "Country",
-    letter: "C",
-  },
-  {
-    title: "R&B",
-    letter: "R",
-  },
-  {
-    title: "Soul",
-    letter: "S",
-  },
-  {
-    title: "Reggae",
-    letter: "R",
-  },
-  {
-    title: "Blues",
-    letter: "B",
-  },
-  {
-    title: "K-Pop",
-    letter: "K",
-  },
-  {
-    title: "Anime",
-    letter: "A",
+    coverColor: "bg-pink-400",
+    href: "/",
   },
 ]
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-start justify-center gap-4 text-primary-foreground md:gap-6">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col items-start justify-center gap-4 md:gap-6">
+      {/* Header */}
+      <div className="flex flex-col md:gap-2">
         <h1 className="text-2xl font-bold md:text-4xl">
           Welcome to&nbsp;
           <span className="font-light">
@@ -174,27 +59,36 @@ export default function Home() {
           </span>
         </h1>
 
+        {/* Welcome Message */}
         <p className="text-left text-sm md:text-lg">
           <span className="font-bold">Music</span> is the best way to relax
           after a long day of work.
         </p>
       </div>
 
-      <div className="flex w-full flex-row items-center justify-between gap-4">
-        <h1 className="flex justify-start text-2xl font-bold">
-          Your Playlists
-        </h1>
-        {/* Show all button */}
+      {/* Playlist section */}
+      <div className="flex w-full flex-col gap-8">
+        {/* Playlists */}
+        <PlayListGroup
+          playListTitle="Your Playlists"
+          playListData={playlists}
+        />
       </div>
-      {/* Playlists items in two columns in big screens and one column in small screens */}
-      <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {playlists.map((playlist, index) => (
-          <PlayListItem
-            key={index}
-            title={playlist.title}
-            letter={playlist.letter}
-          />
-        ))}
+
+      {/* Songs Section */}
+      <div className="flex w-full flex-col gap-4">
+        {/* Songs Header */}
+        <div className="flex flex-row items-center justify-between gap-4">
+          <h1 className="flex justify-start text-2xl font-bold">Your Songs</h1>
+          <Link href="/" className="flex justify-end">
+            View all
+          </Link>
+        </div>
+
+        {/* Songs */}
+        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          List of songs
+        </div>
       </div>
     </div>
   )

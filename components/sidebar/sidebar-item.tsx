@@ -21,13 +21,20 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       href={`${href}`}
       className={cn(
         `
-        text-md flex h-auto w-full
-        cursor-pointer flex-row items-center
-        gap-x-3 rounded-xl font-medium
-        text-muted-foreground transition-colors
-        hover:text-primary-foreground
+        text-md 
+        flex
+        h-auto w-full
+        cursor-pointer 
+        flex-row 
+        items-center
+        gap-x-3 
+        rounded-xl 
+        font-medium
+        text-card-foreground/50
+        transition-colors
+        hover:text-card-foreground
       `,
-        active && "text-primary-foreground"
+        active && "text-card-foreground"
       )}
     >
       <Icon size={20} />

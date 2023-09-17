@@ -1,14 +1,13 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { TbArrowLeft, TbArrowRight, TbHome, TbSearch } from "react-icons/tb"
+import { TbArrowLeft, TbArrowRight, TbHome2, TbSearch } from "react-icons/tb"
 
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
-
-import Button from "./Button2"
+import AuthUILogin from "./auth/auth-login"
+import AuthUISignup from "./auth/auth-signup"
+import { ThemeToggle } from "./theme/theme-toggle"
+import { Button } from "./ui/button"
 
 type HeaderProps = {
   children?: React.ReactNode
@@ -28,63 +27,52 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
       {/* Navigation */}
       {/* Desktop */}
       <div className="hidden items-center gap-x-2 md:flex">
-        <Button onClick={() => router.back()} className="rounded-full p-2">
+        <Button
+          onClick={() => router.back()}
+          className="rounded-full bg-primary px-1 transition-all hover:scale-110 hover:text-green-600 dark:hover:text-green-900"
+        >
           <TbArrowLeft size={30} />
         </Button>
 
-        <Button onClick={() => router.forward()} className="rounded-full p-2">
+        <Button
+          onClick={() => router.forward()}
+          className="rounded-full bg-primary px-1 transition-all hover:scale-110 hover:text-green-600 dark:hover:text-green-900"
+        >
           <TbArrowRight size={30} />
         </Button>
       </div>
 
       {/* Mobile */}
-      <div className="flex items-center gap-x-2 md:hidden">
-        <Button onClick={() => router.back()} className="rounded-full p-3">
-          <TbHome size={30} />
-        </Button>
+      <div className="flex w-full items-center justify-between gap-x-2 md:hidden">
+        <div className="flex gap-x-2">
+          <Button
+            variant="default"
+            size="lg"
+            className="rounded-full bg-primary px-3"
+            onClick={() => router.back()}
+          >
+            <TbHome2 size={24} />
+          </Button>
 
-        <Button className="rounded-full p-3">
-          <TbSearch size={30} />
-        </Button>
+          <Button
+            variant="default"
+            size="lg"
+            className="rounded-full bg-primary px-3"
+          >
+            <TbSearch size={24} />
+          </Button>
+        </div>
+
+        <div className="flex justify-end">
+          <ThemeToggle />
+        </div>
       </div>
 
       {/* Account Buttons */}
-      <div
-        className="
-      hidden
-      items-center
-      justify-center
-      gap-x-2
-      md:flex
-      "
-      >
-        <Link
-          href={`${siteConfig.links.signUp}`}
-          className="
-        bg-transparent
-        px-4 text-primary-foreground
-        transition-colors
-        hover:bg-transparent
-        hover:text-green-400
-        "
-        >
-          Sign up
-        </Link>
-        <Link
-          className="
-                  py-
-                  rounded-full 
-                  bg-primary-foreground
-                  px-6 py-3
-                  text-primary
-                  transition-colors
-                  hover:bg-primary-foreground/80
-                  
-                  "
-          href={`${siteConfig.links.signIn}`}
-        >
-          Login
-        </Link>
+      <div className="hidden items-center justify-center gap-x-2 md:flex">
+        <ThemeToggle />
+        <AuthUISignup />
+        <AuthUILogin />
       </div>
     </div>
   )

@@ -4,7 +4,8 @@ import React, { useMemo } from "react"
 import { usePathname } from "next/navigation"
 import { TbHome, TbSearch } from "react-icons/tb"
 
-import Box from "./box"
+import { Card } from "@/components/ui/card"
+
 import Library from "./library"
 import SidebarItem from "./sidebar-item"
 
@@ -30,15 +31,15 @@ const SideBar = ({ children }: SideBarProps) => {
 
   return (
     <aside className="sticky top-3 hidden h-full min-w-[250px] flex-col gap-y-3 md:flex">
-      <Box className="flex flex-col gap-4 rounded-lg bg-primary px-8 py-7">
+      <Card className="flex flex-col gap-4 border-0 px-8 py-7 text-card-foreground">
         {routes.map((item) => (
           <SidebarItem key={item.name} {...item} />
         ))}
-      </Box>
+      </Card>
 
-      <Box className="h-screen bg-primary px-8 py-7">
+      <Card className="h-full border-0 px-8 py-7">
         <Library />
-      </Box>
+      </Card>
     </aside>
   )
 }
