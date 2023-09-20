@@ -159,6 +159,19 @@ alter table "public"."users" add constraint "users_id_fkey" FOREIGN KEY (id) REF
 
 alter table "public"."users" validate constraint "users_id_fkey";
 
+alter table "public"."users" add column "updated_at" timestamp with time zone;
+
+alter table "public"."users" add column "username" text;
+
+CREATE UNIQUE INDEX users_username_key ON public.users USING btree (username);
+
+alter table "public"."users" add constraint "username_length" CHECK ((char_length(username) >= 3)) not valid;
+
+alter table "public"."users" validate constraint "username_length";
+
+alter table "public"."users" add constraint "users_username_key" UNIQUE using index "users_username_key";
+
+
 set check_function_bodies = off;
 
 CREATE OR REPLACE FUNCTION public.handle_new_user()
@@ -166,11 +179,11 @@ CREATE OR REPLACE FUNCTION public.handle_new_user()
  LANGUAGE plpgsql
  SECURITY DEFINER
 AS $function$
-  begin
-    insert into public.users (id, full_name, avatar_url)
-    values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
-    return new;
-  end;
+begin
+  insert into public.users (id, full_name, avatar_url)
+  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
+  return new;
+end;
 $function$
 ;
 
@@ -238,14 +251,6 @@ to public
 using ((auth.uid() = user_id));
 
 
-create policy "Can update own user data."
-on "public"."users"
-as permissive
-for update
-to public
-using ((auth.uid() = id));
-
-
 create policy "Can view own user data."
 on "public"."users"
 as permissive
@@ -254,4 +259,24 @@ to public
 using ((auth.uid() = id));
 
 
+create policy "Public profiles are viewable by everyone."
+on "public"."users"
+as permissive
+for select
+to public
+using (true);
 
+create policy "Users can insert their own profile."
+on "public"."users"
+as permissive
+for insert
+to public
+with check ((auth.uid() = id));
+
+
+create policy "Users can update own profile."
+on "public"."users"
+as permissive
+for update
+to public
+using ((auth.uid() = id));
